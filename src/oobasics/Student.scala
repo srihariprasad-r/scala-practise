@@ -3,9 +3,11 @@ package oobasics
 class Student(
     val firstName: String, 
     val lastName: String, 
-    quizzes: List[Int] = Nil, 
-    assignments: List[Int] = Nil, 
-    tests: List[Int] = Nil) {
+    private var quizzes: List[Int] = Nil,  //when a constructor is mutable, make it private so external updates do not happen 
+    private var assignments: List[Int] = Nil, 
+    private var tests: List[Int] = Nil) {
+  
+  def addquiz(grade : Int) : Unit = quizzes ::= grade
   
   def quizAverage: Double = if(quizzes.isEmpty) 0.0 
                             else if (quizzes.length == 1) quizzes.head
