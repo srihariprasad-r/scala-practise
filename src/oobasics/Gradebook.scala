@@ -9,6 +9,7 @@ object Gradebook {
   def printStudent(s: Student): Unit = {
     println(s.firstName + " " + s.lastName)
     println("Grade = " + s.average)
+    println(s.tests.mkString(","))
   }
   
 }
