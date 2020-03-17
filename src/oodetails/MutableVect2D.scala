@@ -5,9 +5,9 @@ class MutableVect2D(private var _x: Double, private var _y: Double) {
   
   def y = _y
   
-  def setX(newX: Double) :Unit = _x = newX
+  def x_=(newX: Double) :Unit = _x = newX      //property assignments
   
-  def setY(newY: Double) :Unit = _y = newY  
+  def y_=(newY: Double) :Unit = _y = newY  
   
   def plus(mv:MutableVect2D):MutableVect2D = {
     _x += mv.x
@@ -33,6 +33,7 @@ object MutableVect2D {        //companion object
     val v1 = new MutableVect2D(1,2)
     val v2 = new MutableVect2D(2,2)
     v1.plus(v2)
-    println(v1)
+    v1.x = 10
+    print(v1.x)
   }
 }
