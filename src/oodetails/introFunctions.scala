@@ -6,6 +6,7 @@ class introFunctions {
   val f = (x: Int, y: Int) => x+y
   
   val g = square(_)
+  
 }
 
 object introFunctions {
