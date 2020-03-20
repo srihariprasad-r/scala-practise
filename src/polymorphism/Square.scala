@@ -1,3 +1,5 @@
 package polymorphism
 
-class Square(val length: Double) extends Rectangle(length, length)
+class Square(length: Double) extends Rectangle(length, length) {
+  def length = w
+}

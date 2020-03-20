@@ -17,6 +17,7 @@ object Shape {
     val sq1 = new MutableSquare(5)
     //sq1.width = 10        //square becomes rectangle due to this update
     printShape(sq1)
+    print(sq.length)        //extracting subtype info stored in supertype 
   }
   
   def printShape(s: Shape):Unit = {
