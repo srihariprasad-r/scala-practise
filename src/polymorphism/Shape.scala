@@ -12,6 +12,11 @@ object Shape {
     printShape(rect)
     val cir = new Circle(2)
     printShape(cir)
+    val sq = new Square(4)
+    printShape(sq)
+    val sq1 = new MutableSquare(5)
+    //sq1.width = 10        //square becomes rectangle due to this update
+    printShape(sq1)
   }
   
   def printShape(s: Shape):Unit = {
