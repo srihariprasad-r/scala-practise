@@ -22,13 +22,16 @@ object introToLists {
     val list7 = (0 /: list3)((acc, elem) => (acc+elem))
     val countList7 = (0 /: list3)((acc, elem) => (acc+1))
     val valAndCountList7 = (Tuple2(0,0) /: list3)((acc, elem) => (acc._1+1, elem+acc._2))
+    val maxMinListElement = list3.foldLeft(list3(0), list3(0)) {case ((max, min),e) => 
+              (math.max(max, e), math.min(min, e))}  
     
     //foldright
     val list8 = (list3 :\ 410)((acc,elem) => (acc+elem))
     
     val stringList = List('h','e','l','l','o').addString(new StringBuilder)
     
-    println(valAndCountList7)    //prints (5,20)
+    println(maxMinListElement)  //prints (8,0)
+    //println(valAndCountList7)    //prints (5,20)
     //println(countList7)    //prints 5      
     //println(stringList)    //prints "hello"    
     //println(list8)      //accumulator starts from 410 and moves right to left
