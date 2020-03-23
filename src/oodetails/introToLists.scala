@@ -64,9 +64,19 @@ object introToLists {
      case Nil => mapList
    }
    
-   val outputMap = generateMap(listInput, Map.empty)
-   println(outputMap)      //Map(abc -> 3, bc -> 1, b -> 1)
+   //val outputMap = generateMap(listInput, Map.empty)
+   //println(outputMap)      //Map(abc -> 3, bc -> 1, b -> 1)
    
+   //for comprehension returning data structure
+   def pythagronTriangle(n:Int) = for {
+     x <- 1 to n
+     y <- 1 to n 
+     z <- y to n
+     if (x * x + y * y ==  z * z)
+   } yield (x,y, z)
+   
+   val pythagronOutput = pythagronTriangle(21)
+   println(pythagronOutput)
     //println(maxMinListElement)  //prints (8,0)
     //println(valAndCountList7)    //prints (5,20)
     //println(countList7)    //prints 5      
