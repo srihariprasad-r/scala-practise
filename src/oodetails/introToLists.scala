@@ -51,8 +51,22 @@ object introToLists {
        .reduceLeft((acc, n) => acc && n)
    }    
     
-    val str = "racecar"
-    print(isPalindrome2(str))    
+    //val str = "racecar"
+    //print(isPalindrome2(str)) 
+   
+   //function to count the occurance of element and return Map
+   val listInput = List("abc", "abc", "bc", "b", "abc")
+   
+   def generateMap(elem: List[String],mapList:Map[String, Int]):Map[String,Int] = elem match {
+     case x :: y => if (mapList.keySet.contains(x)) 
+       generateMap(y, mapList ++ Map(x-> (mapList(x)+1)))
+       else generateMap(y, mapList ++ Map(x-> 1))
+     case Nil => mapList
+   }
+   
+   val outputMap = generateMap(listInput, Map.empty)
+   println(outputMap)      //Map(abc -> 3, bc -> 1, b -> 1)
+   
     //println(maxMinListElement)  //prints (8,0)
     //println(valAndCountList7)    //prints (5,20)
     //println(countList7)    //prints 5      
