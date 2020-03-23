@@ -37,15 +37,22 @@ object introToLists {
       case _ => println("catch all")
     }
     
+    //iterative programming
     def isPalindrome(str : String): Boolean = {
       val strLen = str.length()
       for (i <- 0 until strLen/2) {
           if (str(i) != str(strLen-1)) false }
       true
-    }
+    }     
+
+   //using reduceLeft function 
+   def isPalindrome2(s: String) = {
+       (for (x <- 0 to s.length/2) yield (s(x) == s(s.length - x - 1)))
+       .reduceLeft((acc, n) => acc && n)
+   }    
     
     val str = "racecar"
-    print(isPalindrome(str))    
+    print(isPalindrome2(str))    
     //println(maxMinListElement)  //prints (8,0)
     //println(valAndCountList7)    //prints (5,20)
     //println(countList7)    //prints 5      
