@@ -70,12 +70,17 @@ object introToLists {
    //for comprehension returning data structure
    def pythagronTriangle(n:Int) = for {
      x <- 1 to n
-     y <- 1 to n 
+     y <- x to n 
      z <- y to n
      if (x * x + y * y ==  z * z)
    } yield (x,y, z)
    
-   val pythagronOutput = pythagronTriangle(21)
+   //for comprehension breakdown
+   def pythagronTriangle2(n:Int) = (1 to n) flatMap ( x => 
+     (x to n) flatMap(y=>  
+       (y to n) filter (z => x *x + y*y == z*z) map(z => (x, y, z))))
+   
+   val pythagronOutput = pythagronTriangle2(21)
    println(pythagronOutput)
     //println(maxMinListElement)  //prints (8,0)
     //println(valAndCountList7)    //prints (5,20)
