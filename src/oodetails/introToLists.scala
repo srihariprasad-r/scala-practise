@@ -102,8 +102,13 @@ object introToLists {
    
    def normalReturn(x:Int) =  println("argument present "+ x)   
    
+   //partial Function
    val listBound:PartialFunction[Int,Int] =  {
-     case x if x >= 0 && x < l.length - 1 => x
+     case x if x >= 0 && x < l.length/2 => x
+   }
+   
+   val listBound2:PartialFunction[Int,Int] =  {
+     case x if x >= l.length/2 && x < l.length => x
    }
    
    //applyOrElse gets integer as input and returns default function in case of value not found
@@ -121,8 +126,14 @@ object introToLists {
    val listFailOver = listComposeAndThen applyOrElse(_:Int, defaultReturn _) 
    //println(listComposeAndThen.isDefinedAt(2))    //prints "true"
    //println(listCompose(2))    //prints "argument present 3"
-   println(listFailOver(5))    //prints "found its wrong argument 5"
+   //println(listFailOver(5))    //prints "found its wrong argument 5"
    //println(listComposeAndThen(2))  //prints 3
+   
+   //println(listBound.isDefinedAt(3))  //prints "true"
+   
+   //chaining partial functions
+   val partial = listBound orElse listBound2
+   println(partial(3))
    
     //println(maxMinListElement)  //prints (8,0)
     //println(valAndCountList7)    //prints (5,20)
