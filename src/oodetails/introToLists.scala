@@ -98,19 +98,32 @@ object introToLists {
    //println(listAndThenExample(4))    //returns exception when indexOutofBound
    //println(liftexample(4))   //returns None
    
-   def defaultReturn(x:Int) =  println("Wrong argument "+ x)
+   def defaultReturn(x:Int) =  println("found its wrong argument "+ x)
    
    def normalReturn(x:Int) =  println("argument present "+ x)   
    
+   val listBound:PartialFunction[Int,Int] =  {
+     case x if x >= 0 && x < l.length - 1 => x
+   }
+   
    //applyOrElse gets integer as input and returns default function in case of value not found
-   val listApplyOrElse = l.applyOrElse(_:Int,defaultReturn(_))    
+   val listApplyOrElse = l.applyOrElse(_:Int,defaultReturn _ )    
    
    //println(listApplyOrElse(5))    //prints "Wrong argument 5"
    
    //above scenario with applyOrElse is converted to partial function with andThen
-   val listCompose = l andThen normalReturn _
-   println(listCompose(2))
-       
+   val listAndThen = l andThen normalReturn _
+   //println(listAndThen(2))
+
+   //above scenario with applyOrElse is converted to partial function with andThen
+   val listComposeAndThen =  listBound andThen l
+   val listCompose =  normalReturn _ compose listComposeAndThen
+   val listFailOver = listComposeAndThen applyOrElse(_:Int, defaultReturn _) 
+   //println(listComposeAndThen.isDefinedAt(2))    //prints "true"
+   //println(listCompose(2))    //prints "argument present 3"
+   println(listFailOver(5))    //prints "found its wrong argument 5"
+   //println(listComposeAndThen(2))  //prints 3
+   
     //println(maxMinListElement)  //prints (8,0)
     //println(valAndCountList7)    //prints (5,20)
     //println(countList7)    //prints 5      
