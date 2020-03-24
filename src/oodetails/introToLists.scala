@@ -80,8 +80,16 @@ object introToLists {
      (x to n) flatMap(y=>  
        (y to n) filter (z => x *x + y*y == z*z) map(z => (x, y, z))))
    
-   val pythagronOutput = pythagronTriangle2(21)
-   println(pythagronOutput)
+   //val pythagronOutput = pythagronTriangle2(21)
+   //println(pythagronOutput)
+   
+   //aggregate function will use combiner for final computation and run process in parallel
+   val tsc = Tuple2(0,0) //create initial tuple (both sum and count are zero)
+   val shortList = List.tabulate(5)(n=>n*n) //create list
+   
+   val aggOuput = shortList.aggregate(tsc) ((tsc,elem) => (tsc._1+elem, tsc._2+1), (tsc1, tsc2) => (tsc1._1+tsc2._1, tsc2._2+tsc2._2))
+   println(aggOuput)
+       
     //println(maxMinListElement)  //prints (8,0)
     //println(valAndCountList7)    //prints (5,20)
     //println(countList7)    //prints 5      
