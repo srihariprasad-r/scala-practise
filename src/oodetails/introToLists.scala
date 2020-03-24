@@ -88,7 +88,15 @@ object introToLists {
    val shortList = List.tabulate(5)(n=>n*n) //create list
    
    val aggOuput = shortList.aggregate(tsc) ((tsc,elem) => (tsc._1+elem, tsc._2+1), (tsc1, tsc2) => (tsc1._1+tsc2._1, tsc2._2+tsc2._2))
-   println(aggOuput)
+   //println(aggOuput)
+   
+   //andThen is partial function which produces output based on input parameter
+   //no computation processing needed when compared to map which would rather created new list
+   val l = List (1,2,3,4)
+   val listAndThenExample = l.andThen(_*2)
+   val liftexample = listAndThenExample.lift    // converts partial function to complete function and returns Option as data type
+   //println(listAndThenExample(4))    //returns exception when indexOutofBound
+   println(liftexample(4))   //returns None 
        
     //println(maxMinListElement)  //prints (8,0)
     //println(valAndCountList7)    //prints (5,20)
