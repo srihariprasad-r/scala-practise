@@ -96,7 +96,14 @@ object introToLists {
    val listAndThenExample = l.andThen(_*2)
    val liftexample = listAndThenExample.lift    // converts partial function to complete function and returns Option as data type
    //println(listAndThenExample(4))    //returns exception when indexOutofBound
-   println(liftexample(4))   //returns None 
+   println(liftexample(4))   //returns None
+   
+   def defaultReturn(x:Int) =  println("Wrong argument "+ x)
+   
+   //applyOrElse gets integer as input and returns default function in case of value not found
+   val listApplyOrElse = l.applyOrElse(_:Int,defaultReturn(_))    
+   
+   println(listApplyOrElse(5))
        
     //println(maxMinListElement)  //prints (8,0)
     //println(valAndCountList7)    //prints (5,20)
