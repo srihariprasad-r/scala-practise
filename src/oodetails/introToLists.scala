@@ -181,7 +181,11 @@ object introToLists {
    
    //This function will return rows which have same home and organization location
    val filterPoS = pOS filter { case (k, v) => v._1 == v._2} groupBy(_._1) mapValues(_.map(_._2._3)) 
-   println(filterPoS)      //prints Map(P1 -> List(FP Pvt Ltd))
+   //println(filterPoS)      //prints Map(P1 -> List(FP Pvt Ltd))
+   
+   val diffWorkLocations = pOS2 map {c => (c.homeaddress.State,c.orgaddress.address.city)} groupBy(_._2) mapValues(_.map(_._1))   
+   
+   println(diffWorkLocations)  //prints Map(PO -> List(FL), HH -> List(TN, TN, DC), NY -> List(TN))
    
     //println(maxMinListElement)  //prints (8,0)
     //println(valAndCountList7)    //prints (5,20)
