@@ -157,11 +157,11 @@ object introToLists {
                    employeeStay("P4", Address("TD","TN")),  
                    employeeStay("P5", Address("HD","TG")))
                    
-   val pOS2 = List(placeOfStay("P1", Address("MS","TN"), organization("FP Pvt Ltd", Address("HH", "Tennesse"))),
-                   placeOfStay("P2", Address("HD","FL"), organization("KP Pvt Ltd", Address("PO", "District Of Columbia"))),
-                   placeOfStay("P3", Address("TC","TN"), organization("GT Pvt Ltd", Address("NY", "Florida"))),
-                   placeOfStay("P4", Address("TD","TN"), organization("FP Pvt Ltd", Address("HH", "New York"))),  
-                   placeOfStay("P5", Address("HD","DC"), organization("MK Pvt Ltd", Address("HH", "Oslo"))))
+   val pOS2 = List(placeOfStay("P1", Address("MS","TN"), organization("FP Pvt Ltd", Address("HH", "TN"))),
+                   placeOfStay("P2", Address("HD","FL"), organization("KP Pvt Ltd", Address("PO", "DC"))),
+                   placeOfStay("P3", Address("TC","TN"), organization("GT Pvt Ltd", Address("NY", "FL"))),
+                   placeOfStay("P4", Address("TD","TN"), organization("FP Pvt Ltd", Address("HH", "NY"))),  
+                   placeOfStay("P5", Address("HD","DC"), organization("MK Pvt Ltd", Address("HH", "OL"))))
    
    //Below gets list(name, state)
    val stateCount = pOS1.map { case employeeStay(name, address) => (name,address.State)} 
@@ -175,9 +175,13 @@ object introToLists {
    val pOS = pOS2 map {case placeOfStay(name, address, org)  => name-> (address.State, org.address.State, org.name)} 
    
    //groups based on state-> for every item value, extracts the name(which is field 1) and creates swap 
-   val getPOS = pOS map {case (k,v) => (v._1 , k,v._2)} groupBy(_._1) mapValues (_.map(_._2))  
+   val getPOS = pOS map {case (k,v) => (v._1 , k,v._2)} groupBy(_._3) mapValues(_.map{case (v1, v2, v3) => Map(v2-> v3)})
    
-   println(getPOS)      //prints Map(TN -> List(P1, P3, P4), DC -> List(P5), FL -> List(P2))
+   //println(getPOS)  //Map(TN -> List(P1, P3, P4), DC -> List(P5), FL -> List(P2))
+   
+   //This function will return rows which have same home and organization location
+   val filterPoS = pOS filter { case (k, v) => v._1 == v._2} groupBy(_._1) mapValues(_.map(_._2._3)) 
+   println(filterPoS)      //prints Map(P1 -> List(FP Pvt Ltd))
    
     //println(maxMinListElement)  //prints (8,0)
     //println(valAndCountList7)    //prints (5,20)
