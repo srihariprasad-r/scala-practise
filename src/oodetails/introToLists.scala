@@ -32,10 +32,14 @@ object introToLists {
     
     val stringList = List('h','e','l','l','o').addString(new StringBuilder)
     
+    /**commented off this as it creates side effects
+    
     sampleString match {
       case h :: t => println(h)
       case _ => println("catch all")
-    }
+    } 
+    
+    **/
     
     //iterative programming
     def isPalindrome(str : String): Boolean = {
@@ -133,8 +137,29 @@ object introToLists {
    
    //chaining partial functions
    val partial = listBound orElse listBound2
-   println(partial(3))
+   //println(partial(3))
    
+   //case class to create address constructor
+   case class Address ( city: String, State: String)
+   
+   //case class to create Place of stay constructor   
+   case class placeOfStay (name: String, address: Address)
+   
+   val pOS1 = List(placeOfStay("P1", Address("MS","TN")),
+                   placeOfStay("P2", Address("HD","TG")),
+                   placeOfStay("P3", Address("TC","TN")),
+                   placeOfStay("P4", Address("TD","TN")),
+                   placeOfStay("P5", Address("HD","TG")))
+   
+   //Below gets list(name, state)
+   val stateCount = pOS1.map { case placeOfStay(name, address) => (name,address.State)} 
+   
+   //groups based on state-> for every item value, extracts the name(which is field 1) and creates swap 
+   val getCount = stateCount groupBy(_._2) mapValues(_.map(_._1)) map { case (k,v) => (v,k)} 
+   
+    println(getCount)      //prints Map(List(P1, P3, P4) -> TN, List(P2, P5) -> TG)
+    
+    
     //println(maxMinListElement)  //prints (8,0)
     //println(valAndCountList7)    //prints (5,20)
     //println(countList7)    //prints 5      
