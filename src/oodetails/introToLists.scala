@@ -143,23 +143,42 @@ object introToLists {
    case class Address ( city: String, State: String)
    
    //case class to create Place of stay constructor   
-   case class placeOfStay (name: String, address: Address)
+   case class placeOfStay (name: String, homeaddress: Address , orgaddress: organization)
+
+   //added new constructor to avoid code break
+   case class employeeStay (name: String, homeaddress: Address)   
    
-   val pOS1 = List(placeOfStay("P1", Address("MS","TN")),
-                   placeOfStay("P2", Address("HD","TG")),
-                   placeOfStay("P3", Address("TC","TN")),
-                   placeOfStay("P4", Address("TD","TN")),
-                   placeOfStay("P5", Address("HD","TG")))
+   //case class to create organization constructor
+   case class organization (name: String, address: Address)
+   
+   val pOS1 = List(employeeStay("P1", Address("MS","TN")),
+                   employeeStay("P2", Address("HD","TG")),
+                   employeeStay("P3", Address("TC","TN")),
+                   employeeStay("P4", Address("TD","TN")),  
+                   employeeStay("P5", Address("HD","TG")))
+                   
+   val pOS2 = List(placeOfStay("P1", Address("MS","TN"), organization("FP Pvt Ltd", Address("HH", "Tennesse"))),
+                   placeOfStay("P2", Address("HD","FL"), organization("KP Pvt Ltd", Address("PO", "District Of Columbia"))),
+                   placeOfStay("P3", Address("TC","TN"), organization("GT Pvt Ltd", Address("NY", "Florida"))),
+                   placeOfStay("P4", Address("TD","TN"), organization("FP Pvt Ltd", Address("HH", "New York"))),  
+                   placeOfStay("P5", Address("HD","DC"), organization("MK Pvt Ltd", Address("HH", "Oslo"))))
    
    //Below gets list(name, state)
-   val stateCount = pOS1.map { case placeOfStay(name, address) => (name,address.State)} 
+   val stateCount = pOS1.map { case employeeStay(name, address) => (name,address.State)} 
    
    //groups based on state-> for every item value, extracts the name(which is field 1) and creates swap 
    val getCount = stateCount groupBy(_._2) mapValues(_.map(_._1)) map { case (k,v) => (v,k)} 
    
-    println(getCount)      //prints Map(List(P1, P3, P4) -> TN, List(P2, P5) -> TG)
-    
-    
+   //println(getCount)      //prints Map(List(P1, P3, P4) -> TN, List(P2, P5) -> TG)    
+
+   //Below gets list(name, state)
+   val pOS = pOS2 map {case placeOfStay(name, address, org)  => name-> (address.State, org.address.State, org.name)} 
+   
+   //groups based on state-> for every item value, extracts the name(which is field 1) and creates swap 
+   val getPOS = pOS map {case (k,v) => (v._1 , k,v._2)} groupBy(_._1) mapValues (_.map(_._2))  
+   
+   println(getPOS)      //prints Map(TN -> List(P1, P3, P4), DC -> List(P5), FL -> List(P2))
+   
     //println(maxMinListElement)  //prints (8,0)
     //println(valAndCountList7)    //prints (5,20)
     //println(countList7)    //prints 5      
