@@ -242,7 +242,7 @@ object introToLists {
    }   
    
    val flatMapList = flatMapListf1(nestedlist)
-   println(flatMapList)  //prints List(4, 5, 6, 5)   
+   //println(flatMapList)  //prints List(4, 5, 6, 5)   
 
   }
 }
