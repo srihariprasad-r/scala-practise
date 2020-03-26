@@ -233,7 +233,16 @@ object introToLists {
    }
    
    val flattenedList = flattenListf1(nestedlist)
-   println(flattenedList)  //prints List(4, 5, 6, 5)
+   //println(flattenedList)  //prints List(4, 5, 6, 5)
+   
+   //this uses flatMap
+   def flatMapListf1(l:List[Any]):List[Any] = l flatMap { 
+     case (h:List[_]) => flatMapListf1(h)
+     case head => List(head)     
+   }   
+   
+   val flatMapList = flatMapListf1(nestedlist)
+   println(flatMapList)  //prints List(4, 5, 6, 5)   
 
   }
 }
