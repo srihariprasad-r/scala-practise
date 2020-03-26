@@ -2,6 +2,9 @@ package oodetails
 
 object introToLists {
   def main(args:Array[String]):Unit = {
+    
+    /* list basics */
+    
     val list0 = List() //creates an empty List
     val list1 = List(2)
     
@@ -138,6 +141,22 @@ object introToLists {
    //chaining partial functions
    val partial = listBound orElse listBound2
    //println(partial(3))
+
+    //println(maxMinListElement)  //prints (8,0)
+    //println(valAndCountList7)    //prints (5,20)
+    //println(countList7)    //prints 5      
+    //println(stringList)    //prints "hello"    
+    //println(list8)      //accumulator starts from 410 and moves right to left
+    //println(list7)    //accumulator starts from 0 and adds element one by one
+    //println(list6)      //List(0, 0, 0, 0, 0, 0, 6)
+    //println(list5)    //same as :: List(3, 0, 0, 0, 0, 0, 0)
+    //println(list4)    //same as ::: List(0, 0, 0, 0, 0, 0, 0, 2, 4, 6, 8)
+    //println(list3.init) //List(0, 2, 4, 6)
+    //println(list3.head) // 0
+    //println(list3.tail) //List(2, 4, 6, 8)
+   
+   /**********************************************************************************************/
+   /* case class and list operations */
    
    //case class to create address constructor
    case class Address ( city: String, State: String)
@@ -185,19 +204,36 @@ object introToLists {
    
    val diffWorkLocations = pOS2 map {c => (c.homeaddress.State,c.orgaddress.address.city)} groupBy(_._2) mapValues(_.map(_._1))   
    
-   println(diffWorkLocations)  //prints Map(PO -> List(FL), HH -> List(TN, TN, DC), NY -> List(TN))
+   //println(diffWorkLocations)  //prints Map(PO -> List(FL), HH -> List(TN, TN, DC), NY -> List(TN))
    
-    //println(maxMinListElement)  //prints (8,0)
-    //println(valAndCountList7)    //prints (5,20)
-    //println(countList7)    //prints 5      
-    //println(stringList)    //prints "hello"    
-    //println(list8)      //accumulator starts from 410 and moves right to left
-    //println(list7)    //accumulator starts from 0 and adds element one by one
-    //println(list6)      //List(0, 0, 0, 0, 0, 0, 6)
-    //println(list5)    //same as :: List(3, 0, 0, 0, 0, 0, 0)
-    //println(list4)    //same as ::: List(0, 0, 0, 0, 0, 0, 0, 2, 4, 6, 8)
-    //println(list3.init) //List(0, 2, 4, 6)
-    //println(list3.head) // 0
-    //println(list3.tail) //List(2, 4, 6, 8)
+   /**********************************************************************************************/
+   
+   /* flatMap example on nested list */
+   
+   //println(List(2) ::: List(1))
+   
+   val flattenList = List(List(1,2), List(3,4))
+   
+   //flatten works only when there is traversable elements such as List and will not work for non-traversable
+   //elements such as Int
+   //println(flattenList.flatten)  //prints List(1, 2, 3, 4)
+   
+   //This works as well
+   //println(flattenList.flatMap(identity))  //print List(1, 2, 3, 4)
+   
+   val nestedlist = List(List(4, List(5,6)), 5) //List(List(1, 2, 3, 4, List(5, 6, List(7, 8))))
+   
+   //println(nestedlist.flatMap(identity))
+   
+   //This function would flatten the nested list
+   def flattenListf1(l:List[Any]):List[Any] = l match {
+     case Nil => Nil 
+     case (h:List[_]) :: tail => flattenListf1(h) ::: flattenListf1(tail)
+     case head :: tail => head :: flattenListf1(tail)     
+   }
+   
+   val flattenedList = flattenListf1(nestedlist)
+   println(flattenedList)  //prints List(4, 5, 6, 5)
+
   }
 }
