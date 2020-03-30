@@ -225,10 +225,10 @@ object introToLists {
    
    //println(nestedlist.flatMap(identity))
    
-   //This function would flatten the nested list
+   //This function would flatten the nested list with recursion
    def flattenListf1(l:List[Any]):List[Any] = l match {
      case Nil => Nil 
-     case (h:List[_]) :: tail => flattenListf1(h) ::: flattenListf1(tail)
+     case (h:List[Int]) :: tail => flattenListf1(h) ::: flattenListf1(tail)
      case head :: tail => head :: flattenListf1(tail)     
    }
    
@@ -243,6 +243,26 @@ object introToLists {
    
    val flatMapList = flatMapListf1(nestedlist)
    //println(flatMapList)  //prints List(4, 5, 6, 5)   
+
+    val listInput1 = List(1):::List(List(2))
+    
+    val flatList = listInput1.flatMap(c => c match {                           
+                          case i:Int => List(i)     
+                          case x: List[_] => x
+                         })
+                         
+    val list = List(List(1,2),List(3),List(4),5)
+    
+    //This function would flatten the nested list without recursion
+    val flattenFirst :List[Int]  = list flatMap {
+      case i: Int => List(i)
+      case x:List[Int] => x
+    }
+    
+    val foldedNext = flattenFirst.foldLeft(0) _ 
+    
+   val output:Int  = foldedNext((acc, elem) => acc + elem) 
+   println(output)   
 
   }
 }

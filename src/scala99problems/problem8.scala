@@ -1,6 +1,6 @@
 package scala99problems
 
-//     Eliminate continous duplicates:
+//     Eliminate continuous duplicates:
 //     scala> compress(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
 //     res0: List[Symbol] = List('a, 'b, 'c, 'a, 'd, 'e)
 
