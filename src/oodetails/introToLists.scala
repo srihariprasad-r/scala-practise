@@ -308,8 +308,12 @@ object introToLists {
     //remove duplicate elements in list              
     val samplelist2:List[Int] = List(1,2,2,2,3,3,3)
     
-    def uniqueValues(list:List[Int]): List[Int] = list.foldLeft(List[Int]())((r, c) => if (r.contains(c)) r else List(c) ::: r)
-    
-    println(uniqueValues(samplelist2))
+    //get list of unique values using List[Int]
+    def uniqueValues(list:List[Int]): List[Int] = list.foldLeft(List[Int]())((r, c) => if (r.contains(c)) r else List(c) ::: r)    
+    //println(uniqueValues(samplelist2))  //prints List(3, 2, 1)
+
+    //get list of unique values using Set[Int]    
+    def uniqueSet(list: List[Int]): Set[Int] = list.foldLeft(Set[Int]())((r,c) => r + c)      
+    println(uniqueSet(samplelist2)) //prints Set(1, 2, 3)
   }
 }
