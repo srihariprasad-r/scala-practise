@@ -253,16 +253,29 @@ object introToLists {
                          
     val list = List(List(1,2),List(3),List(4),5)
     
-    //This function would flatten the nested list without recursion
+    //This function would flatten the nested list without recursion using fold function
     val flattenFirst :List[Int]  = list flatMap {
       case i: Int => List(i)
       case x:List[Int] => x
     }
     
+   //created partial function
     val foldedNext = flattenFirst.foldLeft(0) _ 
     
-   val output:Int  = foldedNext((acc, elem) => acc + elem) 
-   println(output)   
+    val output:Int  = foldedNext((acc, elem) => acc + elem) 
+    //println(output)   //prints 15
 
+    /**********************************************************************************************/
+   /* fold function examples */
+    
+    val sampleList = List(1,2,3,4,5,6)
+    
+    def product(list:List[Int]) = list.foldLeft(1)((acc,elem)=> acc*elem)
+    //println(product(sampleList))  //prints 720
+    
+    //finding average using foldleft 
+    def average(list:List[Int]):Double = (0.0 /: list)((acc,elem) => acc+elem)/(0.0 /:list)((acc,_) => acc+ 1)
+    
+    println(average(sampleList)) //prints 3.5
   }
 }
