@@ -280,13 +280,21 @@ object introToLists {
     def lastItem(list:List[Int]):Int = (0 /: list)((_,elem) => elem)    
     //println(lastItem(sampleList)) //prints 6
 
+    //finding last but one element with recursion
     def lastButOneItem(list:List[Int]):Int = list match {
       case List(i) => i
       case List(i, _) => i
       case h :: t => lastButOneItem(t)
       case Nil => 0
     }
-    println(lastButOneItem(sampleList)) //prints 5    
-        
+    //println(lastButOneItem(sampleList)) //prints 5    
+    
+    //finding last but one element with foldleft function     
+    def lastButOneFold(list:List[Int]):(Int,Int) = list.foldLeft((list.head, list.tail.head))((r,c) => (r._2, c))  
+    //println(lastButOneFold(sampleList))
+    
+    //find if element exists in list
+    def findItemList(list: List[Int], item: Int): Boolean = list.foldLeft(false)((acc,elem) => acc || elem == item)
+    println(findItemList(sampleList,3))
   }
 }
