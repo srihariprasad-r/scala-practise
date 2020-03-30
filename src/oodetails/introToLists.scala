@@ -295,6 +295,14 @@ object introToLists {
     
     //find if element exists in list
     def findItemList(list: List[Int], item: Int): Boolean = list.foldLeft(false)((acc,elem) => acc || elem == item)
-    println(findItemList(sampleList,3))
+    //println(findItemList(sampleList,3))
+
+    //find if element and return the index of that element in list provided
+    def findItemIndex(list: List[Int], item: Int): Int = list.tail.foldLeft((list.head,0)) {
+              (acc,elem) => if (acc._1 == item) acc  else (elem,acc._2+1) } match {
+                case (value, idx) if (value == item) => idx
+                case _ => throw new Exception ("No value found")
+              }
+    println(findItemIndex(sampleList,3))    //prints 2
   }
 }
