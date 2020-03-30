@@ -274,8 +274,19 @@ object introToLists {
     //println(product(sampleList))  //prints 720
     
     //finding average using foldleft 
-    def average(list:List[Int]):Double = (0.0 /: list)((acc,elem) => acc+elem)/(0.0 /:list)((acc,_) => acc+ 1)
+    def average(list:List[Int]):Double = (0.0 /: list)((acc,elem) => acc+elem)/(0.0 /:list)((acc,_) => acc+ 1)    
+    //println(average(sampleList)) //prints 3.5
     
-    println(average(sampleList)) //prints 3.5
+    def lastItem(list:List[Int]):Int = (0 /: list)((_,elem) => elem)    
+    //println(lastItem(sampleList)) //prints 6
+
+    def lastButOneItem(list:List[Int]):Int = list match {
+      case List(i) => i
+      case List(i, _) => i
+      case h :: t => lastButOneItem(t)
+      case Nil => 0
+    }
+    println(lastButOneItem(sampleList)) //prints 5    
+        
   }
 }
