@@ -303,6 +303,13 @@ object introToLists {
                 case (value, idx) if (value == item) => idx
                 case _ => throw new Exception ("No value found")
               }
-    println(findItemIndex(sampleList,3))    //prints 2
+    //println(findItemIndex(sampleList,3))    //prints 2
+    
+    //remove duplicate elements in list              
+    val samplelist2:List[Int] = List(1,2,2,2,3,3,3)
+    
+    def uniqueValues(list:List[Int]): List[Int] = list.foldLeft(List[Int]())((r, c) => if (r.contains(c)) r else List(c) ::: r)
+    
+    println(uniqueValues(samplelist2))
   }
 }
