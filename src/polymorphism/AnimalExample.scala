@@ -38,9 +38,12 @@ class myPet(a: AnimalExample){
 object AnimalExample{
   def main(args: Array[String]): Unit = {
     //val an = new Animal("black")    //this throws error as class is abstract
- 
+    
+    //below defines implicit variables
     implicit val animalFood : String = "Fasting all evening!" 
-    implicit def foodQuantity (a: Int) = a.toString 
+    implicit def foodQuantity (a: Int) = a.toString
+    
+    //code implementation
     val c = new Cat("blue", List("jump", "sit"))
     println(c.animalColor)  //prints blue
     println(c.trickName)  //List(jump, sit)
