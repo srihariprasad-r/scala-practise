@@ -33,7 +33,7 @@ class areaZoo(z: typeZoo[zooAnimal]) {
 
 class typeLion extends zooAnimal
 
-object InvariantExample {
+object variantExamples {
   def main(args: Array[String]): Unit = {
     //normal class without any Type information
     val zooAnimal1 = new Zoo(new Lion("Meat")) 
