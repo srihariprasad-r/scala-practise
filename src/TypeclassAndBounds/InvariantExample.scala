@@ -19,8 +19,9 @@ class Zoo(animal: Animal){
   val eatingHabit: String = animal.eatingHabit
 }
 
-//below is type class implementation with genric type 'A'
-class typeZoo[A](animal: A){
+//below is type class implementation with generic type 'A'.
+//adding '+' makes it covariant, if B is subtype of A then Class[B] is subtype of Class[A]
+class typeZoo[+A](animal: A){
   //this is type class expects instances of any type A and returns instances of same type
   //val eatingHabit: String = animal.eatingHabit  
 }
@@ -30,6 +31,8 @@ class areaZoo(z: typeZoo[zooAnimal]) {
    //val eatingHabit: String = z.eatingHabit
 }
 
+class typeLion extends zooAnimal
+
 object InvariantExample {
   def main(args: Array[String]): Unit = {
     //normal class without any Type information
@@ -37,12 +40,16 @@ object InvariantExample {
     println(zooAnimal1.eatingHabit)    //prints "Meat"!
     
     //error: type mismatch - Invariant type - DEFAULT behavior
-    //val zooAnimal2 = new areaZoo(new typeZoo[Lion](new Lion("Meat"))) 
-    //println(zooAnimal2.eatingHabit)   
+    //val zooAnimal2 = new areaZoo(new typeZoo[Lion](new Lion("Meat")))
+    //println(zooAnimal2)   
 
     //below code works when instantiated with zooAnimal class
     val zooAnimal3 = new areaZoo(new typeZoo[zooAnimal] (new zooAnimal)) 
     println(zooAnimal3)      //prints "TypeclassAndBounds.areaZoo@5f184fc6"   
+
+    //below works after changing the class to covariant
+    val zooAnimal4 = new areaZoo(new typeZoo[typeLion](new typeLion)) 
+    println(zooAnimal4)       //prints TypeclassAndBounds.areaZoo@3feba861
     
   }
   
