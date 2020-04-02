@@ -19,6 +19,10 @@ class ForestZoo[+A](f:A)
 
 class typeAnimal(d: ForestZoo[LionAsAnimal])
 
+class contraZoo[-A](f:A)
+
+class typeContraAnimal(d: contraZoo[LionAsAnimal])
+
 
 object DirectionsofVariants {
   def main(args: Array[String]) : Unit = {
@@ -31,6 +35,13 @@ object DirectionsofVariants {
 
     //below works as WhiteLion is subtype of LionAsAnimal
     val covariantZoo3 = new typeAnimal(new ForestZoo[WhiteLion] (new WhiteLion))
-    println(covariantZoo3)  //TypeclassAndBounds.typeAnimal@3feba861     
+    println(covariantZoo3)  //TypeclassAndBounds.typeAnimal@3feba861    
+
+    //below throws error as it is contravariant and only its base class and superclass are accessible, subclass is not
+    //val contravariantZoo4 = new typeContraAnimal(new contraZoo[WhiteLion] (new WhiteLion))
+    //println(covariantZoo4)  //TypeclassAndBounds.typeAnimal@3feba861       
+
+    val contravariantZoo5 = new typeContraAnimal(new contraZoo[Forest] (new Forest))
+    println(contravariantZoo5)  //TypeclassAndBounds.typeContraAnimal@5b480cf9         
   }
 }
