@@ -25,11 +25,17 @@ class TigerAsAnimal(name: String) extends Forest(name){
 
 //class SiberianTiger extends TigerAsAnimal
 
-class ForestZoo[+A](f:A)        //covariant implementation
+class ForestZoo[+A](f:A){      //covariant implementation
+  def function1:A = f        //when class is covariant, it can have functions return type of A
+  //def function2(a: A) :A       //but it cannot take input arguments of same type
+}
 
 class typeAnimal(d: ForestZoo[LionAsAnimal])  //class accepts constructor with LionAsAnimal as type parameter
 
-class contraZoo[-A](f:A)      //contravariant implementation
+class contraZoo[-A](f:A){      //contravariant implementation
+  //def function1:A = f      //when class is contravariant, it can't have functions which returns type of A
+  def function2(a: A) = ???    //but they can get input arguments 
+}
 
 class typeContraAnimal(d: contraZoo[Forest])
 
@@ -40,13 +46,13 @@ object DirectionsofVariants {
     //println(forest.someImplementation)
     
     val lion = new LionAsAnimal("Lion")    //this instance extends Forests class
-    println(lion.isInstanceOf[LionAsAnimal])  //prints true
-    println(lion.isInstanceOf[Forest])       //prints true
-    println(lion.someImplementation)         //prints Inside Lion class, printing the name: Lion!
+    //println(lion.isInstanceOf[LionAsAnimal])  //prints true
+    //println(lion.isInstanceOf[Forest])       //prints true
+    //println(lion.someImplementation)         //prints Inside Lion class, printing the name: Lion!
     
     val tiger = new TigerAsAnimal("Tiger")
     //println(tiger.asInstanceOf[Forest])    
-    println(tiger.someImplementation)    //prints Inside Lion class, printing the name: Tiger!
+    //println(tiger.someImplementation)    //prints Inside Lion class, printing the name: Tiger!
     
     val whiteLion = new WhiteLion("White")
     //println(whiteLion.someImplementation)
@@ -72,6 +78,6 @@ object DirectionsofVariants {
     
     //below works!
     val contravariantZoo6 = new typeContraAnimal(new contraZoo[Forest] (forest))
-    println(contravariantZoo6)  //TypeclassAndBounds.typeContraAnimal@5b480cf9         
+    //println(contravariantZoo6)  //TypeclassAndBounds.typeContraAnimal@5b480cf9         
   }
 }
