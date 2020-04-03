@@ -1,47 +1,77 @@
 package TypeclassAndBounds
 
 
-class Forest
+class Forest(name: String){
+  def someImplementation: Unit = println(s"Inside Forest class, printing the name of forest: $name")
+}
 
-class LionAsAnimal extends Forest
+class LionAsAnimal(name: String) extends Forest(name){
+  override def someImplementation: Unit = println(s"Inside Lion class, printing the name: $name!")
+}
 
-class WhiteLion extends LionAsAnimal
+class WhiteLion(name: String)  extends LionAsAnimal(name){
+  override def someImplementation: Unit = println(s"Inside whiteLion class, printing the name: $name!")
+}
 
-class DessertLion extends LionAsAnimal
+class TigerAsAnimal(name: String) extends Forest(name){
+  override def someImplementation: Unit = println(s"Inside Lion class, printing the name: $name!")
+}
 
-class TigerAsAnimal extends Forest
+//class DessertLion extends LionAsAnimal
 
-class BengalTiger extends TigerAsAnimal
+//class TigerAsAnimal extends Forest
 
-class SiberianTiger extends TigerAsAnimal
+//class BengalTiger extends TigerAsAnimal
 
-class ForestZoo[+A](f:A)
+//class SiberianTiger extends TigerAsAnimal
 
-class typeAnimal(d: ForestZoo[LionAsAnimal])
+class ForestZoo[+A](f:A)        //covariant implementation
 
-class contraZoo[-A](f:A)
+class typeAnimal(d: ForestZoo[LionAsAnimal])  //class accepts constructor with LionAsAnimal as type parameter
 
-class typeContraAnimal(d: contraZoo[LionAsAnimal])
+class contraZoo[-A](f:A)      //contravariant implementation
+
+class typeContraAnimal(d: contraZoo[Forest])
 
 
 object DirectionsofVariants {
   def main(args: Array[String]) : Unit = {
-    val covariantZoo1 = new typeAnimal(new ForestZoo[LionAsAnimal] (new LionAsAnimal))
-    println(covariantZoo1)  //prints TypeclassAndBounds.ForestZoo@5f184fc6
+    val forest = new Forest("Sahara")
+    //println(forest.someImplementation)
+    
+    val lion = new LionAsAnimal("Lion")    //this instance extends Forests class
+    println(lion.isInstanceOf[LionAsAnimal])  //prints true
+    println(lion.isInstanceOf[Forest])       //prints true
+    println(lion.someImplementation)         //prints Inside Lion class, printing the name: Lion!
+    
+    val tiger = new TigerAsAnimal("Tiger")
+    //println(tiger.asInstanceOf[Forest])    
+    println(tiger.someImplementation)    //prints Inside Lion class, printing the name: Tiger!
+    
+    val whiteLion = new WhiteLion("White")
+    //println(whiteLion.someImplementation)
+    
+    //below code works as base class is passed as argument!
+    val covariantZoo1 = new typeAnimal(new ForestZoo (lion))
+    //println(covariantZoo1)  //prints TypeclassAndBounds.ForestZoo@5f184fc6
 
-    //below throws error as it is covariant and only its base class and subclass are accessible, superclass is not
-    //val covariantZoo2 = new typeAnimal(new ForestZoo[Forest] (new LionAsAnimal))
-    //println(covariantZoo2)  //prints TypeclassAndBounds.ForestZoo@5f184fc6    
-
-    //below works as WhiteLion is subtype of LionAsAnimal
-    val covariantZoo3 = new typeAnimal(new ForestZoo[WhiteLion] (new WhiteLion))
-    println(covariantZoo3)  //TypeclassAndBounds.typeAnimal@3feba861    
+    //val covariantZoo2 = new typeAnimal(new ForestZoo (forest))
+    //println(covariantZoo2)  //prints TypeclassAndBounds.ForestZoo@5f184fc6
+    
+    //below throws error as it is covariant and only its base class and subclass are accessible
+    //val covariantZoo3 = new typeAnimal(new ForestZoo (tiger))
+    //println(covariantZoo3)  //prints TypeclassAndBounds.ForestZoo@5f184fc6
+    
+    //below code works as child classes are passed as argument!    
+    val covariantZoo4 = new typeAnimal(new ForestZoo(whiteLion))
+    //println(covariantZoo4)  //TypeclassAndBounds.typeAnimal@3feba861    
 
     //below throws error as it is contravariant and only its base class and superclass are accessible, subclass is not
-    //val contravariantZoo4 = new typeContraAnimal(new contraZoo[WhiteLion] (new WhiteLion))
-    //println(covariantZoo4)  //TypeclassAndBounds.typeAnimal@3feba861       
-
-    val contravariantZoo5 = new typeContraAnimal(new contraZoo[Forest] (new Forest))
-    println(contravariantZoo5)  //TypeclassAndBounds.typeContraAnimal@5b480cf9         
+    //val contravariantZoo5 = new typeContraAnimal(new contraZoo[LionAsAnimal](lion))
+    //println(contravariantZoo5)  //TypeclassAndBounds.typeAnimal@3feba861       
+    
+    //below works!
+    val contravariantZoo6 = new typeContraAnimal(new contraZoo[Forest] (forest))
+    println(contravariantZoo6)  //TypeclassAndBounds.typeContraAnimal@5b480cf9         
   }
 }
