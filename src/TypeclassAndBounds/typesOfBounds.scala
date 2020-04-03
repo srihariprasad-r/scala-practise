@@ -19,24 +19,40 @@ class coVarUpperBound[A <: childClass](a:A){
   def covarFunc  = a.func   //value func is not member of type parameter A
 }
 
-//class coVarLowerBound[A >: childClass](a:A){
-//  def covarFunc  = a.func 
-//}
+class contraClass[+A]{
+  //below implementation causes issues as class is co-variant and type parameter passed as input 
+  //def func(a:A, list: List[A]):List[A]= {a::list}
+  
+  //below implementation works after we add Upper bound
+  def func[A <:contraChildClass](a:A, list: List[A]):List[A]= {a::list}
+}
 
+class contraChildClass extends contraClass{
+  def somefunc:Unit= println("executing childclass")
+}
+
+
+class contraChildClass2 extends contraChildClass{
+  override def somefunc:Unit = println("executing childclass2")
+}
 
 object typesOfBounds {
   def main(args:Array[String]): Unit = {
     val p = new parentClass
     val c = new childClass
-    val c2 = new childClass2 
+    val c2 = new childClass2       
     
-    //instantiate the covariance class with childClass or its subtypes
+    //instantiate the covariance class with childClass or its sub-types
     val coVariance = new coVarUpperBound(c)
     println(coVariance.covarFunc)  //prints I am in childClass1
     
     //works!
     val coVariance2 = new coVarUpperBound(c2)
-    println(coVariance2.covarFunc)  //I am in childClass2  
+    println(coVariance2.covarFunc)  //I am in childClass2
+    
+    val coV = new contraClass
+    val list = List(new contraClass, new contraClass[contraChildClass], new contraClass[contraChildClass2])
+    println(list)  //prints List(TypeclassAndBounds.contraClass@2f4d3709, TypeclassAndBounds.contraClass@4e50df2e, TypeclassAndBounds.contraClass@1d81eb93)
         
   }
   
