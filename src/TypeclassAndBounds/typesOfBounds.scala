@@ -41,7 +41,7 @@ class coVarClass[-A]{
   //below implementation causes issues as class is contra-variant and return type parameter passed 
   //def func(a:A):List[A] = List(a):::Nil
   
-  //below implementation works after we add Upper bound
+  //below implementation works after we add lower bound
   def func[A >:coVarChildClass](a:A):List[A] = List(a):::Nil
 }
 
