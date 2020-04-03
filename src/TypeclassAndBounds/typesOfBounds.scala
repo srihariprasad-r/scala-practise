@@ -36,6 +36,19 @@ class contraChildClass2 extends contraChildClass{
   override def somefunc:Unit = println("executing childclass2")
 }
 
+
+class coVarClass[-A]{
+  //below implementation causes issues as class is contra-variant and return type parameter passed 
+  //def func(a:A):List[A] = List(a):::Nil
+  
+  //below implementation works after we add Upper bound
+  def func[A >:coVarChildClass](a:A):List[A] = List(a):::Nil
+}
+
+class coVarChildClass extends coVarClass{
+  def somefunc:Unit= println("executing childclass")
+}
+
 object typesOfBounds {
   def main(args:Array[String]): Unit = {
     val p = new parentClass
@@ -50,10 +63,14 @@ object typesOfBounds {
     val coVariance2 = new coVarUpperBound(c2)
     println(coVariance2.covarFunc)  //I am in childClass2
     
-    val coV = new contraClass
+    //val coV = new contraClass
     val list = List(new contraClass, new contraClass[contraChildClass], new contraClass[contraChildClass2])
     println(list)  //prints List(TypeclassAndBounds.contraClass@2f4d3709, TypeclassAndBounds.contraClass@4e50df2e, TypeclassAndBounds.contraClass@1d81eb93)
         
+    
+    val contraV = new coVarClass
+    val list2 = contraV.func(2)
+    println(list2)  //prints List(2)    
   }
   
 }
