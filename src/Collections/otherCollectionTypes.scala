@@ -23,14 +23,17 @@ object otherCollectionTypes {
   //This return list collection
   val c = List(a,b)
   //print(c.flatten)        //prints List(1, 2, 3, 1, 2, 3, 4)
+  
+  //below prints only 2 values which are distinct even though there are three elements involved in set
+  //println(Set(1,2,3).map(x => x %2))   //prints Set(1, 0)
 
   /*****************************************************************************************/
   //Seq collection examples
   
-  val s: Seq[Int] = Seq(1,2,3)
+  val s: Seq[Int] = Seq(1,2,3,4, 0)
   val t: Seq[Boolean] = Seq(true, false, true)
   
-  //print(s.zip(t))  //prints List((1,true), (2,false), (3,true))
+  //println(s.zip(t))  //prints List((1,true), (2,false), (3,true))
   
   val m : Map[Int, Boolean] = s.zip(t).toMap
   //println(m)    //prints Map(1 -> true, 2 -> false, 3 -> true)
@@ -42,6 +45,19 @@ object otherCollectionTypes {
   val seq = Seq(1,2,3,4,5)
   val sliding = seq.sliding(2).toList  //prints List(List(1, 2), List(2, 3), List(3, 4), List(4, 5))
   //print(sliding)
+  
+  val x = Seq(0,0.1,0.2) zip Seq(1.0,2.0,3.0)
+  //println(x)      //prints List((0.0,1.0), (0.1,2.0), (0.2,3.0))
+  //println(x.map { case (x,y) => x- y})     //prints List(-1.0, -1.9, -2.8)
+  
+  //below function will get count of elements which have a[i] > a[i+1]
+  val a1 = s.drop(1)
+  //println(a1)      //prints List(2, 3)
+  val c1 = s.zip(a1)
+  //println(c1)       //prints List((1,2), (2,3))
+  println(c1 count { case (x,y) => x > y})    //prints 1
+  
+  
   
 }
 }
