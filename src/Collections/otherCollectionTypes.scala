@@ -42,9 +42,10 @@ object otherCollectionTypes {
     case(x, y) => y == true 
   })          //prints Map(1 -> true, 3 -> true)
   
+  //function to get maximum value every 2 elements given a sequence
   val seq = Seq(1,2,3,4,5)
   val sliding = seq.sliding(2).toList  //prints List(List(1, 2), List(2, 3), List(3, 4), List(4, 5))
-  //print(sliding)
+  //println(sliding map {l => l.max })    //prints List(2, 3, 4, 5)
   
   val x = Seq(0,0.1,0.2) zip Seq(1.0,2.0,3.0)
   //println(x)      //prints List((0.0,1.0), (0.1,2.0), (0.2,3.0))
@@ -55,9 +56,16 @@ object otherCollectionTypes {
   //println(a1)      //prints List(2, 3)
   val c1 = s.zip(a1)
   //println(c1)       //prints List((1,2), (2,3))
-  println(c1 count { case (x,y) => x > y})    //prints 1
+  //println(c1 count { case (x,y) => x > y})    //prints 1
+  //above function can also be written as below
+  s zip (s drop(1)) count { case(x,y) => x > y} 
+      
+  //print multiplication table of 3 using map implementation
+  val m1 = List(1,2,3)
+  //println(m1.map{i => m1.map { j => ((i, j), j*i )}}.flatten.toMap)
+  //prints Map((3,1) -> 3, (1,1) -> 1, (3,2) -> 6, (1,3) -> 3, (2,2) -> 4, (3,3) -> 9, (2,3) -> 6, (1,2) -> 2, (2,1) -> 2)     
   
-  
-  
+  //same implementation using flatmap which is map + flatten
+  println(m1.flatMap{ i => m1 map {j => (i,j) -> j*i}}.toMap)
 }
 }
