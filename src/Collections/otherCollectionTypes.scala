@@ -84,8 +84,10 @@ object otherCollectionTypes {
   
   //convert integer to sequence of digits
   val digitToSeq= Iterator.iterate((3341,0)){case (m,_) => (m/10, m%10)}.takeWhile{case(x, y) => x > 0 || y > 0 }.drop(1).toList.reverse.map(_._2)
-  print(digitToSeq)      //prints List(3, 3, 4, 1)
+  //println(digitToSeq)      //prints List(3, 3, 4, 1)
   
-  
+  //write function which gets sum of previous elements
+  val scanExample = ex2.scan(0){(x,y) => x + y} 
+  println(scanExample) //prints List(0, 1, 4, 6, 10) 
 }
 }
