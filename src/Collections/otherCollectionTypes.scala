@@ -74,6 +74,18 @@ object otherCollectionTypes {
   //println(ex2.zip(dropex2))  //prints List((1,3), (3,2), (2,4))
   //println(ex2.zip(dropex2).map{case(a,b) => (a -> (a < b))}.toMap)  //prints Map(1 -> true, 3 -> false, 2 -> true)
   
+  //convert sequence of digits to integer digits using tail recursion
+  def seqToInt(s: Seq[Int], acc: Int): Int = {
+    if (s.isEmpty) acc
+    else seqToInt(s.drop(1), 10*acc + s.head)
+  }
+    
+  //println(seqToInt(Seq(3,4,5,6,7), 0))    //34567
+  
+  //convert integer to sequence of digits
+  val digitToSeq= Iterator.iterate((3341,0)){case (m,_) => (m/10, m%10)}.takeWhile{case(x, y) => x > 0 || y > 0 }.drop(1).toList.reverse.map(_._2)
+  print(digitToSeq)      //prints List(3, 3, 4, 1)
+  
   
 }
 }
