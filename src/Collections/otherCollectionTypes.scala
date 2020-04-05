@@ -66,6 +66,14 @@ object otherCollectionTypes {
   //prints Map((3,1) -> 3, (1,1) -> 1, (3,2) -> 6, (1,3) -> 3, (2,2) -> 4, (3,3) -> 9, (2,3) -> 6, (1,2) -> 2, (2,1) -> 2)     
   
   //same implementation using flatmap which is map + flatten
-  println(m1.flatMap{ i => m1 map {j => (i,j) -> j*i}}.toMap)
+  //println(m1.flatMap{ i => m1 map {j => (i,j) -> j*i}}.toMap)
+  
+  //convert the below sequence to Tuples with true when element following is greater than current element
+  val ex2 = Seq(1,3,2,4)
+  val dropex2 = ex2.drop(1)
+  //println(ex2.zip(dropex2))  //prints List((1,3), (3,2), (2,4))
+  //println(ex2.zip(dropex2).map{case(a,b) => (a -> (a < b))}.toMap)  //prints Map(1 -> true, 3 -> false, 2 -> true)
+  
+  
 }
 }
