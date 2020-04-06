@@ -99,9 +99,10 @@ object otherCollectionTypes {
   def func2(a: Seq[Int]): Int = a match {
     case Seq(x) => x
     case _ => func2(a.drop(1))
-  }
+  }  
+  //println(func2(s2))      //prints 1000
   
-  println(func2(s2))
-  
+  //below code will fetch the third largest element
+  println(s2.zip(s2.drop(1)).map{case (x,y) => if (x > y) x else y}.distinct.take(1))
 }
 }
