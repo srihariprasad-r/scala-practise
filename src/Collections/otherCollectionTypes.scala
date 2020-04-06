@@ -103,6 +103,26 @@ object otherCollectionTypes {
   //println(func2(s2))      //prints 1000
   
   //below code will fetch the third largest element
-  println(s2.zip(s2.drop(1)).map{case (x,y) => if (x > y) x else y}.distinct.take(1))
+  //println(s2.zip(s2.drop(1)).map{case (x,y) => if (x > y) x else y}.distinct.take(1))
+  
+  //write code to implement binary search on sorted Array[Int]
+  //return smaller number closer to given number
+  val array: Array[Int] = Array(1,2,5,10,20)
+  
+  def binarySearch(a: Array[Int] , x:Int): Int = a match {
+    case Array(z) => z
+    case _ => {
+      val l: Int = a.length/2
+      val (left, right) = a.splitAt(l)
+      if (x > a(l)) {        
+        binarySearch(right, x)
+      } else {
+        binarySearch(left, x)        
+      }
+    }
+  }
+    
+    println(binarySearch(array, 15))  //prints 10
+  
 }
 }
