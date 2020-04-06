@@ -88,6 +88,20 @@ object otherCollectionTypes {
   
   //write function which gets sum of previous elements
   val scanExample = ex2.scan(0){(x,y) => x + y} 
-  println(scanExample) //prints List(0, 1, 4, 6, 10) 
+  //println(scanExample) //prints List(0, 1, 4, 6, 10) 
+  
+  //below function will iterate from 1 through x and stops when f(x) == 1000 and returns count of items which caused overflow 
+  val a2 = Iterator.iterate(1){a => 2*a + 1}.takeWhile{_ <= 1000}.toList
+  //println(a2)    //prints List(1, 3, 7, 15, 31, 63, 127, 255, 511)
+  
+  //get last element in seq
+  val s2 = Seq(1,10,5,20,1000)
+  def func2(a: Seq[Int]): Int = a match {
+    case Seq(x) => x
+    case _ => func2(a.drop(1))
+  }
+  
+  println(func2(s2))
+  
 }
 }
