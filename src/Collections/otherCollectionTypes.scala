@@ -105,7 +105,17 @@ object otherCollectionTypes {
   //below code will fetch the third largest element
   //println(s2.zip(s2.drop(1)).map{case (x,y) => if (x > y) x else y}.distinct.take(1))
   
-  //write code to implement binary search on sorted Array[Int]
+  //below is recursive function to fetch third maximum element  
+  def func3(a:List[Int], max : Int, k: Int): Int = (a, k) match {
+    case (a,  k) if k == 2 => a.reduce((x,y) => if (x > y) x else y)
+    case (a, _) => 
+      val max = a.reduce((x,y) => if (x > y) x else y)
+      func3(a.takeWhile{ _< max}, max, k+1) 
+  }
+  
+  //println(func3(s2.toList,Int.MaxValue,0))    //prints 10
+  
+ //write code to implement binary search on sorted Array[Int]
   //return smaller number closer to given number
   val array: Array[Int] = Array(1,2,5,10,20)
   
@@ -122,7 +132,7 @@ object otherCollectionTypes {
     }
   }
     
-    println(binarySearch(array, 15))  //prints 10
+    //println(binarySearch(array, 15))  //prints 10
   
 }
 }
