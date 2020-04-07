@@ -23,7 +23,7 @@ object introFunctions {
     //above function can be written using Either[String, Int] which either prints error or returns result
     def disjointLoggerFunc(x: Either[String, Int]): Int = x match {
       case Left(a) => println(s"Error raised: $a"); -1      //this expression prints a message and return Int (-1)
-      case Right(res) => res
+      case Right(res) => res    
     }
     
     //println(disjointLoggerFunc(Left("Logger failure"))) //prints "Error raised: Logger failure  -1"
@@ -45,9 +45,23 @@ object introFunctions {
     }
     
     //below will execute the function which are generic on Types
-    println(genericDisjoint(inputAsList(List(1,2,3))))    //prints 1
-    println(genericDisjoint(inputAsInt(30)))              //prints 300
-    println(genericDisjoint(inputAsBoolean(30, true)))    //prints false   
+    //println(genericDisjoint(inputAsList(List(1,2,3))))    //prints 1
+    //println(genericDisjoint(inputAsInt(30)))              //prints 300
+    //println(genericDisjoint(inputAsBoolean(30, true)))    //prints false
+    
+    //Other common type of disjunction is Option[T] which has Some(x) & None as Left/Right
+    //below is example which divides a number by other and returns result using Option
+    
+    def divisionByOption(x: Int, y: Int) : Option[Double] = (x,y) match {
+      case (_, 0) => None
+      case (0, _) => Some(0)      
+      case _ => Some(x/y)
+    }
+    
+    val result: Unit = divisionByOption(1, 0) match {        //this function prints "Error occured"
+      case Some(x) => println(x)
+      case None => println("Error occured")
+    }
    
   }
 }
