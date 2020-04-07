@@ -59,8 +59,8 @@ object introFunctions {
     }
     
     val result: Unit = divisionByOption(1, 0) match {        //this function prints "Error occured"
-      case Some(x) => println(x)
-      case None => println("Error occured")
+      case Some(x) => println(x)            //similar to Left(x) in Either[T] 
+      case None => println("Error occured")    //similar to Right(x) in Either[T], and is case object extending Nothing
     }
    
   }
