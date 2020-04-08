@@ -80,6 +80,11 @@ object introFunctions {
     //vAvB: A => A x B
     //vAvB: (A => B) => A
     
+    //Type isomorphism : 
+    //vA: A x Unit => A -> f1 && vA: A => (A, Unit) -> f2 are isomorphic
+    def f1[A]: (A, Unit) => A = { case (a, b) => a} 
+    def f2[A]: A => (A, Unit) = a => (a, ())
+    
    
   }
 }
