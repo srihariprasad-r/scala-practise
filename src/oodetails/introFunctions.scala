@@ -62,6 +62,17 @@ object introFunctions {
       case Some(x) => println(x)            //similar to Left(x) in Either[T] 
       case None => println("Error occured")    //similar to Right(x) in Either[T], and is case object extending Nothing
     }
+
+    /************************************************************************************************/
+    
+    //Curry Howard proposition
+    //vA: A => A            def identity[A](x:A): A => x
+    //vA: A => 1            def toUnit[A](x:A):  Unit => ()  
+    //vAvB: A => A + B      def either[A,B](x: A): Either[A,B] = Left(x)        //'+' means OR (Either)
+    //vAvB: A x B => A      def tuple[A,B](p:(A,B)): A => p._1                  //'x' means AND (tuple)
+    //vAvB: A => (B => A)   def implicit[A](x:A): B => A = (y: B) => x
+    
+    
    
   }
 }
