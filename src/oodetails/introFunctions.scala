@@ -66,12 +66,19 @@ object introFunctions {
     /************************************************************************************************/
     
     //Curry Howard proposition
-    //vA: A => A            def identity[A](x:A): A => x
-    //vA: A => 1            def toUnit[A](x:A):  Unit => ()  
+    
+    //valid formulas
+    //vA: A => A            def identity[A](x:A): A => x  
+    //vA: A => 1            def toUnit[A](x:A):  Unit => ()                      //1 means Unit(True) , 0 means Nothing
     //vAvB: A => A + B      def either[A,B](x: A): Either[A,B] = Left(x)        //'+' means OR (Either)
     //vAvB: A x B => A      def tuple[A,B](p:(A,B)): A => p._1                  //'x' means AND (tuple)
     //vAvB: A => (B => A)   def implicit[A](x:A): B => A = (y: B) => x
     
+    //Invalid forumlas
+    //vA:1 => A
+    //vAvB: A v B => A
+    //vAvB: A => A x B
+    //vAvB: (A => B) => A
     
    
   }
