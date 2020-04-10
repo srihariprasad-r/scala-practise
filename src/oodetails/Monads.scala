@@ -25,6 +25,7 @@ object Monad {
     //applies flatmap on list elements
     //println(list flatMap f)  //prints List(110, 101, 111, 115, 109, 105, 116, 104, 116, 114, 105, 110, 105, 116, 121)
     
+    /*************************************************************************************************/
     //flatMaps can be rewritten in for comprehension as below
     
     //Step:1 - rearrange the flatMap expression into for comprehension
@@ -43,6 +44,21 @@ object Monad {
     
     //Step4: a=> f(a) can be rewritten as f by law _ => f(_) and '_' is placeholder syntax
     list flatMap f
+
+    /*************************************************************************************************/
+    //map can be rewritten in for comprehension as below    
     
+    //Step-1: Map can be written with one generator and yield which produces Monad of same shape
+    for {
+      a <- list
+    } yield(f(a))
+    
+    //Step-2: as there is only generator with yield, we can directly convert as map and pass each element to function f
+    list.map{ a => f(a) }
+    
+    //Step-3: Based on identity rule, removed unnecessary params
+    list map f
+
+    /*************************************************************************************************/    
   }
 }
