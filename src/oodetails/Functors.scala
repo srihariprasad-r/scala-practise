@@ -27,10 +27,6 @@ object Functors {
   implicit val listFunctor: Functors[List] = new Functors[List] {
     def map[A, B](fa: List[A])(f:A=> B): List[B] = fa.map(f)
   }
-
-  //
-  //implicit def nonTraversibleFunctor[X]: Functors[X => B] = new Functors[C] {
-  //  def map[A, B](fa: X => A)(f:A => B): C = fa andThen f
-  //}  
+  
   
 }
