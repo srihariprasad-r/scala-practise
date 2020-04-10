@@ -7,8 +7,8 @@ sealed trait Option[A] {
   def flatMap[B](f: A=> Option[B]) : Option[B]
 }
 
-case class SomeFunc[A](a: A) extends Option[A] {
-  def map[B](f: A=> B) : Option[B] = SomeFunc(f(a))
+case class Some[A](a: A) extends Option[A] {
+  def map[B](f: A=> B) : Option[B] = Some(f(a))
   def flatMap[B](f: A=> Option[B]) : Option[B] = f(a)
 }
 
@@ -44,6 +44,28 @@ object Monad {
     //this method uses flatmap as it already has monad function as input based on above method
     //flatMap uses function which converts A=> M[B] and returns M[B]
     def computeFoo(foo: Foo) : Option[Int] = foo.bar.flatMap(computeBar)
+    
+    //final compute which uses flatmap based on monad function returned from above steps
+    def compute(maybeFoo: Option[Foo]): Option[Int] = maybeFoo.flatMap(computeFoo)
+    
+    //above functions can be rewritten into single statement as follows
+    def computeMonadic(maybeFoo: Option[Foo]): Option[Int] = maybeFoo.flatMap {
+      foo => foo.bar.flatMap { 
+        bar => bar.baz.map {
+          baz => baz.compute
+        }               
+      }
+    }
+    
+    //above function can be rewritten using for comprehension
+    def computeForComprehension(maybeFoo: Option[Foo]): Option[Int] = for {
+      foo <- maybeFoo      //flatMap
+      bar <- foo.bar       //flatMap 
+      baz <- bar.baz       //map
+    } yield(baz.compute)    //map
+    
+    
+    /*************************************************************************************************/
     
     //for comprehension using Monad[List]
     
