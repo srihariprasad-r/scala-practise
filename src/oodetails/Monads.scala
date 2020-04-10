@@ -1,8 +1,49 @@
 package oodetails
 
+//Monad provides interface for composing values on container objects
+
+sealed trait Option[A] {
+  def map[B](f: A=> B) : Option[B]
+  def flatMap[B](f: A=> Option[B]) : Option[B]
+}
+
+case class SomeFunc[A](a: A) extends Option[A] {
+  def map[B](f: A=> B) : Option[B] = SomeFunc(f(a))
+  def flatMap[B](f: A=> Option[B]) : Option[B] = f(a)
+}
+
+/**
+*case class NoneFunc[A] extends Option[A] {
+*  def map[B](f: A=> B) : Option[B] = None
+*  def flatMap[B](f: A=> Option[B]) : Option[B] = None
+*}
+* 
+*/
+
+class Foo {
+  def bar: Option[Bar] = ???
+}
+
+class Bar {
+  def baz: Option[Baz] = ???
+}
+
+class Baz {
+  def compute: Int = 33
+}
 
 object Monad {
   def main(args: Array[String]) : Unit = {
+    
+    //this method is a non-monad function as it is called on instance of same class
+    def computeBaz(baz:Baz): Int = baz.compute     
+    
+    //this method uses map function to convert Option[Bar] instance to Option[Int] instance
+    def computeBar(bar: Bar) : Option[Int] = bar.baz.map(computeBaz)    //mondaic function as it returns Option[Int]
+    
+    //this method uses flatmap as it already has monad function as input based on above method
+    //flatMap uses function which converts A=> M[B] and returns M[B]
+    def computeFoo(foo: Foo) : Option[Int] = foo.bar.flatMap(computeBar)
     
     //for comprehension using Monad[List]
     
