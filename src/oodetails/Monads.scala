@@ -24,5 +24,25 @@ object Monad {
     
     //applies flatmap on list elements
     //println(list flatMap f)  //prints List(110, 101, 111, 115, 109, 105, 116, 104, 116, 114, 105, 110, 105, 116, 121)
+    
+    //flatMaps can be rewritten in for comprehension as below
+    
+    //Step:1 - rearrange the flatMap expression into for comprehension
+    for {        //prints List(110, 101, 111, 115, 109, 105, 116, 104, 116, 114, 105, 110, 105, 116, 121)
+      a <- list
+      b  <- f(a) 
+    } yield b    
+    
+    //Step-2: Decompose first <- into flatMap and last <- will be mapped as we have yield
+    list.flatMap { a => 
+      f(a).map { b => b } 
+      }     
+    
+    //Step-3 : Removed map which is on identity function which return fa.map(identity) = fa
+    list.flatMap { a => f(a) }
+    
+    //Step4: a=> f(a) can be rewritten as f by law _ => f(_) and '_' is placeholder syntax
+    list flatMap f
+    
   }
 }
