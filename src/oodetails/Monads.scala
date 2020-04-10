@@ -59,6 +59,21 @@ object Monad {
     //Step-3: Based on identity rule, removed unnecessary params
     list map f
 
-    /*************************************************************************************************/    
+    /*************************************************************************************************/
+    //Examples of complex for comprehension converted to flatmap/map examples
+    
+    val powertable = for {
+      x <- 2 to 3
+      y <- (3 :: 4:: Nil) 
+    }yield List(x, y, Math.pow(x, y))
+    
+    //println(powertable)    //prints Vector(List(2.0, 3.0, 8.0), List(2.0, 4.0, 16.0), List(3.0, 3.0, 27.0), List(3.0, 4.0, 81.0))
+    
+    (2 to 3) flatMap { x => 
+      (3 :: 4:: Nil) map{ y =>
+        (x, y)
+      } map { case (x, y) => List(x, y, Math.pow(x, y)) }
+    }
+    
   }
 }
