@@ -1,6 +1,6 @@
 package Datastructures
 
-class linkedlist[A] {
+class mutableSinglylinkedlist[A] {
   
   //Node class takes var as arguments as they can have methods which are mutable
   private class Node(var data: A, var next: Node)
@@ -8,7 +8,7 @@ class linkedlist[A] {
   //define head of linked list which is senitel with NULL value
   private var head: Node = null
   
-  //apply method is a companion object which would move the pointer to needed loction
+  //apply method is a companion object which would move the pointer to needed location
   def apply(index: Int): A  = {
     require(index >= 0 )
     //initial position of cursor is set to head
