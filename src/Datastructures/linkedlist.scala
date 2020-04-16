@@ -25,7 +25,7 @@ class linkedlist[A] {
     cursor.data = data    
   }
   
-  def insert(index: Int, data: A) {
+  def insert(index: Int, data: A) = {
     require(index >= 0 )
     if (index == 0) {
       head = new Node(data, head)
@@ -34,6 +34,22 @@ class linkedlist[A] {
     var cursor = head
     for (i <- 0 until index-1) cursor = cursor.next
     cursor.next = new Node(data, cursor.next)
+  }
+  }
+   
+  def remove (index: Int): A = {
+    require(index >= 0 )
+    if (index == 0) {
+      var ret = head.data
+      head = head.next
+      ret
+    } else {
+    //initial position of cursor is set to head
+    var cursor = head
+    for (i <- 0 until index-1) cursor = cursor.next
+    val ret = cursor.next.data
+    cursor.next = cursor.next.next
+    ret
   }
   }
   
