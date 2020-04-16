@@ -49,6 +49,7 @@ abstract class bufferSinglylinkedlist[A] extends mutable.Buffer[A]{
       cursor.data
     }
   
+  
   def upd(index: Int, data: A): A = {
     require(index >=0 && index < count)
     var cursor = fst
@@ -57,6 +58,23 @@ abstract class bufferSinglylinkedlist[A] extends mutable.Buffer[A]{
     cursor.data
   }
   
+  //remove method    
+  def remove(index: Int) : A = {
+    require(index >= 0 && index < count)
+    if (index == 0){          //removes index at 0
+      val ret = fst.data
+      fst = fst.next
+      if (fst == null) lst = fst      //if there is only one element removed, tail and head reset to null
+      ret
+    } else {
+      var cursor = fst
+      for (i <- 1 until index) cursor = cursor.next
+      val ret = cursor.data
+      cursor.next = cursor.next.next
+      if (cursor.next == null) lst = cursor        //if last element is removed, tail is shifted to last but one node
+      ret
+    }
+  }
   
   }
   
