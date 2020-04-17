@@ -3,7 +3,7 @@ package Datastructures
 import collection.mutable
 
 //left as abstract as 6 methods yet to be implemented from Buffer class
-abstract class bufferSinglylinkedlist[A] extends mutable.Buffer[A]{
+class bufferSinglylinkedlist[A] extends mutable.Buffer[A]{
   
   private class Node(var data: A, var next: Node)
   
@@ -99,7 +99,18 @@ abstract class bufferSinglylinkedlist[A] extends mutable.Buffer[A]{
         for (i <- 1 until index) cursor = cursor.next
         lastnewElement.next = cursor.next                //attach last node of newly formed linked list as current node's next 
         cursor.next = headnewElement                     //current node's next will be head of newly formed linked list
+        if (lastnewElement.next == null) lst = lastnewElement
       }
+    }
+  }
+  
+  def iterator: Iterator[A] = new Iterator[A]{
+    var cursor = fst
+    def hasNext: Boolean = cursor != null      //returns True until cursor has next node
+    def next(): A = {
+      var ret = cursor.data
+      cursor = cursor.next
+      ret
     }
   }
   
