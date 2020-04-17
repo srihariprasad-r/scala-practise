@@ -61,6 +61,7 @@ abstract class bufferSinglylinkedlist[A] extends mutable.Buffer[A]{
   //remove method    
   def remove(index: Int) : A = {
     require(index >= 0 && index < count)
+    count -= 1              //decrement count by 1 as it is removal of elements
     if (index == 0){          //removes index at 0
       val ret = fst.data
       fst = fst.next
@@ -73,6 +74,32 @@ abstract class bufferSinglylinkedlist[A] extends mutable.Buffer[A]{
       cursor.next = cursor.next.next
       if (cursor.next == null) lst = cursor        //if last element is removed, tail is shifted to last but one node
       ret
+    }
+  }
+  
+  //add many elements to existing linked list
+  def insertAll(index: Int, elem: collection.Traversable[A]): Unit = {
+    require(index >= 0 && index < count +1)
+    //below create new linked list with all elements and attaches to existing linked list
+    if (elem.nonEmpty) {    
+      val headnewElement = new Node(elem.head, null)      //form with head of iterable as point it as first element
+      var lastnewElement = headnewElement                  //last node will point to head as there is only one element
+      count += 1
+      for (e <- elem.tail) {
+        lastnewElement.next = new Node(e, null)      //form other nodes based on iteration
+        lastnewElement = lastnewElement.next        //move the pointer
+        count += 1
+      }
+      if ( index == 0){
+        lastnewElement.next = fst          //move last element and point to null as there are no other elements
+        fst = headnewElement
+        if (lst == null) lst = lastnewElement
+      } else {
+        var cursor = fst
+        for (i <- 1 until index) cursor = cursor.next
+        lastnewElement.next = cursor.next                //attach last node of newly formed linked list as current node's next 
+        cursor.next = headnewElement                     //current node's next will be head of newly formed linked list
+      }
     }
   }
   
