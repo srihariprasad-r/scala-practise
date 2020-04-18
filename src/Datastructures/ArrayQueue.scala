@@ -16,6 +16,8 @@ class ArrayQueue[A: ClassTag] {
       popindex = 0
       pushindex = data.length - 1
     }
+    data(pushindex)
+    pushindex = (pushindex + 1) % data.length
   }
   
   def dequeue(): A = {
