@@ -50,12 +50,12 @@ class bufferSinglylinkedlist[A] extends mutable.Buffer[A]{
     }
   
   
-  def upd(index: Int, data: A): A = {
+  override def update(index: Int, data: A): Unit = {
     require(index >=0 && index < count)
     var cursor = fst
     for (i <- 0 until index) cursor = cursor.next
     cursor.data = data
-    cursor.data
+    //cursor.data
   }
   
   //remove method    
@@ -115,4 +115,19 @@ class bufferSinglylinkedlist[A] extends mutable.Buffer[A]{
   }
   
   }
+
+object bufferSinglylinkedlist {
+  def main(args: Array[String]): Unit = {
+    val b1 = new bufferSinglylinkedlist[Int]()
+    
+    b1.insert(0, 10)
+    b1.insert(1,11)
+    b1.insert(2, 12)
+    b1.insert(3,13)
+    
+    val l1 = List(2,3,4)      //created collection for inserting to existing node
+    val b2 = b1.insertAll(3, l1)      //insert at node 3
+    println(b1(2))
+  }
+}
   
