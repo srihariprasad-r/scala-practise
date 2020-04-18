@@ -13,7 +13,8 @@ class mutableSinglylinkedlist[A] {
     require(index >= 0 )
     //initial position of cursor is set to head
     var cursor = head
-    for (i <- 0 until index) cursor = cursor.next 
+    for (i <- 0 until index) { println(i, cursor.data, cursor.next.data)
+    cursor = cursor.next }
     cursor.data
   }
   

@@ -96,7 +96,9 @@ class bufferSinglylinkedlist[A] extends mutable.Buffer[A]{
         if (lst == null) lst = lastnewElement
       } else {
         var cursor = fst
-        for (i <- 1 until index) cursor = cursor.next
+        for (i <- 1 until index) {
+          cursor = cursor.next 
+        }
         lastnewElement.next = cursor.next                //attach last node of newly formed linked list as current node's next 
         cursor.next = headnewElement                     //current node's next will be head of newly formed linked list
         if (lastnewElement.next == null) lst = lastnewElement
@@ -114,6 +116,14 @@ class bufferSinglylinkedlist[A] extends mutable.Buffer[A]{
     }
   }
   
+  def printElements(): Unit = {
+    var cursor = fst
+    for (i <- 0 until count - 1) {    
+      cursor = cursor.next
+      println(cursor.data)
+    }
+  }
+  
   }
 
 object bufferSinglylinkedlist {
@@ -127,7 +137,9 @@ object bufferSinglylinkedlist {
     
     val l1 = List(2,3,4)      //created collection for inserting to existing node
     val b2 = b1.insertAll(3, l1)      //insert at node 3
-    println(b1(2))
+    //println(b1(2))
+    
+    println(b1.printElements())
   }
 }
   
