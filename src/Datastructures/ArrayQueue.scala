@@ -12,8 +12,8 @@ class ArrayQueue[A: ClassTag] {
     //below condition checks when to create a copy when all index position are full and need to expand
     if ((pushindex + 1) % data.length == popindex) {
       val tmp = new Array[A](data.length * 2)
-      //copy happens based on modulo. example: (2+1) % 6 == 3 , so new array(0) <- old array(2)
-      for (i <- 0 until data.length - 1) tmp(i) = data((popindex +1) % data.length)
+      //copy happens based on modulo. example: (2+0) % 6 == 2 , so new array(0) <- old array(2)
+      for (i <- 0 until data.length - 1) tmp(i) = data((popindex +i) % data.length)
       data = tmp
       //after copy reset the index to be popped to begining of array
       popindex = 0
