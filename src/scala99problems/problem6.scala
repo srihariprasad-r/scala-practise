@@ -19,7 +19,7 @@ class problem6 {
 object problem6 {
   def main(args:Array[String]):Unit = {
     val p6 = new problem6
-    val list1 = List(1,2,2,2,2,2,3,2,6)
+    val list1 = List(1,2,3,5,6)
     //println(p6.palindromeCheck(true, list1))    
     
     /**
@@ -32,6 +32,6 @@ object problem6 {
     * */    
     //println(list1.tail.head)
     //println(list1.span{ _ == list1.head})
-    
+
   }
 }  
