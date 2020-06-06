@@ -1,3 +1,4 @@
+
 package miscellaneous
 
 class permutations {
@@ -21,4 +22,5 @@ object permutations {
   //println(List(100,200,300).take(1) ++ List(100,200,300).drop(2))
   
 }
-}
+} 
+
