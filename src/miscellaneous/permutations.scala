@@ -17,10 +17,10 @@ class permutations {
  //permutation using span method on List iterable 
  def perms[A](xs: List[A]) : List[List[A]] = xs match {
    case Nil => List(xs)
-   case _ => for {
+   case _ => for {        
            x <- xs
            ; val (l,r) = xs span { x!= _ }
-           ; ys <- perms(l ++ r.tail)    
+           ; ys <- perms(l ++ r.tail)           
        } yield (x :: ys)
   }
 
