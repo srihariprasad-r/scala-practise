@@ -18,7 +18,7 @@ class minimumindex {
         if ( cmnidex < output.head._2) {
           output.clear()
           output.append((l2(i), cmnidex))
-         } 
+         } else if (cmnidex == output.head._2)  output.append((l2(i), cmnidex)) 
        }
      }
     output.map{case (x, y) => x}.toArray
