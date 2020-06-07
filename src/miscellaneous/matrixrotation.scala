@@ -17,6 +17,10 @@ class matrixrotation {
         a1(r)(c) + a2(r)(c)
       }
     }    
+   
+   (0 until c).map {c =>
+     (0 until r).map (a1(_)(c))
+     }
 
   }
 }
@@ -30,11 +34,11 @@ object matrixrotation {
     //code results display inner most square of a matrix. Function uses only one argument, not two
     //println(m.matrixdropOuter(matrix1))  //Vector(Vector(6, 7), Vector(10, 11))    
     
-    val matrix1 = Array(Array(1,2), Array(3,4))
-    val matrix2 = Array(Array(10,20), Array(30,40))
+    //val matrix1 = Array(Array(1,2), Array(3,4))
+    //val matrix2 = Array(Array(10,20), Array(30,40))
     
     //code to print new matrix with sum of two matrices. function takes two arguments
-    println(m.matrixdropOuter(matrix1, matrix2))  //Vector(Vector(11, 22), Vector(33, 44))
+    //println(m.matrixdropOuter(matrix1, matrix2))  //Vector(Vector(11, 22), Vector(33, 44))
 
   }
 }
