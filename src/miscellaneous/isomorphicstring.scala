@@ -23,8 +23,8 @@ class isomorphicstring {
 
 object isomorphicstring {
   def main(args: Array[String]): Unit = {
-    val str1 = "poo"
-    val str2 = "air"
+    val str1 = "egg"
+    val str2 = "add"
     val is = new isomorphicstring
     println(is.func(str1, str2))  //false
   }
