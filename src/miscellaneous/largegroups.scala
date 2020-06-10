@@ -10,7 +10,7 @@ class largegroups {
     
     s.indices.foreach(idx => 
       idx match {
-        case idx if (!results.contains(s(idx))) => results += List(result(s(idx))._1)
+        //case idx if (!results.contains(s(idx))) => results += List(result(s(idx))._1)
         //case idx if (results.contains(s(idx))) => results += List(result(s(idx))._2)      
         case idx => if (map.contains(s(idx)) == false) {
                       map(s(idx))= mutable.ListBuffer(idx)
