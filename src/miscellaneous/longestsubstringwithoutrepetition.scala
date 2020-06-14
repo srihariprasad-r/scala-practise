@@ -6,27 +6,26 @@ class longestsubstringwithoutrepetition {
   def func(s: String): Int = {
     
     var map = mutable.HashSet[Char]()
-    var j = 0 
-    var i = 0
+    var right = 0 
+    var left = 0
     
     var max = 0 
     
     s.indices.foreach(idx =>
-      idx match {
-        case idx if (map.isEmpty == true) => map.add(s(idx))
-        case idx if ((!map.isEmpty) && map.contains(s(idx)) == false ) => {
-          map.add(s(idx))
-          j += 1
+      idx match {        
+        case idx => { 
+          if (map.add(s.charAt(right))) {          
+          right += 1        
           max = math.max(max, map.size)
         }
-        case idx if ((!map.isEmpty) && map.contains(s(i)) == true ) =>  {
-          map.remove(s(i))
-          i += 1
+          else {           
+            map.remove(s.charAt((left)))
+            left += 1       
+          }
         }
       }
    )
-   max
-          
+   max 
   }
 }
 
@@ -34,7 +33,7 @@ object longestsubstringwithoutrepetition {
   def main(args: Array[String]): Unit = {
     val lst = new longestsubstringwithoutrepetition
     
-    val s = "pwwkew"
+    val s = "aab"
     println(lst.func(s))
   }
 }
