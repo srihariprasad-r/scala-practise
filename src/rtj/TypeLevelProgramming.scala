@@ -1,6 +1,6 @@
 package rtj
 
-object TypeLevelPrgoramming {
+object TypeLevelProgramming {
   
   trait Nat
   class zero extends Nat
@@ -14,7 +14,7 @@ object TypeLevelPrgoramming {
   object < extends lessThan {
     //implicit def validate[N <: Nat]: lessThan[zero, Succ[N]] = ???
     //def inductive[A <: Nat, B <: Nat]: lessThan[Succ[A], Succ[B]]  = ???
-    def apply[A <: Nat, B <: Nat]: lessThan[A, B] = f
+    def apply[A <: Nat, B <: Nat]: lessThan[A, B] = lessThan[A, B]
     
     val zerolessthantwo = <[zero, two]
     val threelessthanOne = <[three, one] 
