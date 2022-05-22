@@ -3,13 +3,16 @@ package rtj
 class Person(val name: String) {
   import Person._
   //import scala.runtime.ScalaRunTime.stringOf
-  def parent(): List[String] = {
+  def parent(): String = {
     val s = this.name
-    s.split(" ").toList
+    s.split(" ").toList match {
+      case x :: y :: Nil => s"Father: ${x} Mother: ${y}"
+      case _ => "None"
+    }
   }
 }
 
-object Person{
+object Person extends App{
   def calculateAge(n: Int): Int = n
   def isMale(gender: Boolean): Boolean = gender
   def apply(father: Person, mother: Person) = {
