@@ -8,6 +8,8 @@ class Person(val name: String) {
 }
 
 class Parent(val father: Person = null, val mother: Person = null) extends Person("") {
+  //auxillary constructor
+  def this(father: Person) = this(father, null)
   def parent(): Boolean = this match {
     case father if mother == null => isMale(true)
     case mother if father == null => isMale(false)
@@ -17,12 +19,12 @@ class Parent(val father: Person = null, val mother: Person = null) extends Perso
   def getParentName(p: Person): String = parentName(p)
 }
 
-object Person {}
+object Person extends App{}
 
 def main(args: Array[String]): Unit = {
   val fp1 = new Person("FP1")
   val mp1 = new Person("MP1")
-  val p1 = new Parent(fp1, mp1)
+  val p1 = new Parent(father=fp1)
   println(p1.parent())
   println(p1.getParentName(mp1))
   println(p1.calculateAge(10))
